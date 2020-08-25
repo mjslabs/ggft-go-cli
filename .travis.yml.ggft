@@ -1,0 +1,50 @@
+language: go
+
+os:
+  - linux
+  - osx
+  - windows
+
+env:
+  - GO111MODULE=on
+
+go:
+  - 1.15.x
+
+install:
+  - GO111MODULE=off go get -v github.com/codeclimate/test-reporter
+  - go get -u golang.org/x/lint/golint
+
+before_script:
+  - test-reporter before-build
+  - |-
+      case $TRAVIS_OS_NAME in
+        windows)
+          choco install make zip
+          ;;
+      esac
+
+script:
+  - make test
+  - export DIST_NAME="{{ .ProjectName }}_${TRAVIS_OS_NAME}"
+  - make dist
+
+after_script:
+  - |-
+      case $TRAVIS_OS_NAME in
+        windows)
+          ;;
+        *)
+          test-reporter after-build --coverage-input-type gocov --exit-code $TRAVIS_TEST_RESULT
+          ;;
+      esac
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file: "{{ .ProjectName }}*.zip"
+  file_glob: true
+  skip_cleanup: true
+  draft: true
+  on:
+    tags: true

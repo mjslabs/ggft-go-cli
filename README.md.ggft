@@ -1,0 +1,37 @@
+# {{ .ProjectNameFullTitle }} ({{ .ProjectName }})
+
+[![Build Status][travis-badge]][travis]
+[![Go Report Card][goreport-badge]][goreport]
+[![Test Coverage][coverage]][codeclimate]
+[![FOSSA Status][fossa-badge]][fossa]
+
+[travis-badge]: https://travis-ci.org/ ... ?branch=master
+[travis]: https://travis-ci.org/ ...
+[goreport-badge]: https://goreportcard.com/badge/{{ .GitURLNoProto }}
+[goreport]: https://goreportcard.com/report/{{ .GitURLNoProto }}
+[coverage]: https://api.codeclimate.com/v1/badges/ ... /test_coverage
+[codeclimate]: https://codeclimate.com/ ... /test_coverage
+[fossa-badge]: https://app.fossa.com/api/projects/ ... ?type=shield
+[fossa]: https://app.fossa.com/projects/ ... ?ref=badge_shield
+
+{{ .ProjectName }} is ...
+
+## Installation
+
+To install {{ .ProjectName }}, the quickest way is to use the standard `go get` process:
+
+```bash
+go get {{ .GitURLNoProto }}
+```
+
+Alternatively, if you'd like to use custom build directives, add features, or
+install a versioned binary, use the clone and make method:
+
+```bash
+git clone https://{{ .GitURLNoProto }}.git && cd {{ .ProjectName }}
+make install
+```
+
+## Usage
+
+## Caveats
